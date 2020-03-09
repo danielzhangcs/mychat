@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple WebSocket</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var user = prompt("please enter your name");
+        var conn = new WebSocket("ws://localhost:5000");
+
+        conn.onopen = function(evt) {
+          console.log("haha here we build the websocket connection")
+          conn.send(user+": Connected!");
+        };
+
+        conn.onmessage = function(evt) {
+          var formatted_data = "<p>"+evt.data+"</p>";
+          $(".messages").append(formatted_data);
+        };
+
+        $('#message').on('keypress', function(e) {
+          var key = e.which;
+          if(key == 13) { // the enter key code
+            var msg = user+": "+$(this).val();
+            conn.send(msg);
+            $(this).val("");
+          }
+        });
+
+        conn.onclose = function(evt) {
+          console.log("Connection closed.");
+        };
+
+      })
+    </script>
+
+
+  </head>
+  <body>
+
+    <div>
+      <h1>Chat</h1>
+    </div>
+
+    <div class="messages">
+      Messages:
+    </div>
+
+    <div>
+
+      <form name="input_messages">
+        <textarea id="message"></textarea>
+      </form>
+
+    </div>
+  </body>
+</html>
