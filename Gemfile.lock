@@ -6,7 +6,7 @@ GEM
       http_parser.rb (~> 0.6.0)
     eventmachine (1.2.7)
     http_parser.rb (0.6.0)
-    rack (2.2.2)
+    rack (2.2.3)
 
 PLATFORMS
   ruby
